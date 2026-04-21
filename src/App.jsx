@@ -1,9 +1,17 @@
-export default function Home() {
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Home from "./pages/Home";
+
+function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-red-500">
-      <h1 className="text-white text-4xl font-bold">
-        Tailwind IS WORKING 🚀
-      </h1>
-    </div>
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </>
   );
 }
+
+export default App;
