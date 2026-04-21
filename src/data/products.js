@@ -1,22 +1,27 @@
-const products = [
+// 🔥 Import images
+import img1 from "../assets/images/f4276992.jpg";
+import img2 from "../assets/images/f4279552.jpg";
+
+// 🔥 Product list
+export const products = [
   {
     id: 1,
-    title: "Nike Air Shoes",
+    name: "Nike Air Max",
     price: 120,
-    image: "https://via.placeholder.com/300",
+    image: img1,
+    category: "Shoes",
+    rating: 4.5,
+    reviews: 120,
+    isNew: true,
   },
   {
     id: 2,
-    title: "Smart Watch",
-    price: 80,
-    image: "https://via.placeholder.com/300",
-  },
-  {
-    id: 3,
-    title: "Headphones",
-    price: 60,
-    image: "https://via.placeholder.com/300",
+    name: "Adidas Ultraboost",
+    price: 95,
+    image: img2,
+    category: "Shoes",
+    rating: 4.2,
+    reviews: 80,
+    isNew: false,
   },
 ];
-
-export default products;
