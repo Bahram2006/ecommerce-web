@@ -58,7 +58,7 @@ export default function Hero() {
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition"
             >
               <img
-                src="/src/assets/images/f4276992.jpg"
+                src="/src/assets/images/5.jpg"
                 alt="card"
                 className="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
               />
