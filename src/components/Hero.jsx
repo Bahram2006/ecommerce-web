@@ -1,10 +1,31 @@
 import { useState, useEffect } from "react";
 
+// 🔥 SLIDER IMAGES (PUBLIC FOLDER ULAN)
 const images = [
-  "/src/assets/images/1.jpg",
-  "/src/assets/images/3.jpg",
-  "/src/assets/images/4.jpg",
-  "/src/assets/images/5.jpg",
+  "/images/1.jpg",
+  "/images/3.jpg",
+  "/images/4.jpg",
+  "/images/5.jpg",
+];
+
+// 🔥 CARD DATA (HER BIRI AYRY)
+const cardData = [
+  {
+    title: "Shoes",
+    image: "/images/1.jpg",
+  },
+  {
+    title: "Clothes",
+    image: "/images/3.jpg",
+  },
+  {
+    title: "Electronics",
+    image: "/images/5.jpg",
+  },
+  {
+    title: "Accessories",
+    image: "/images/7.jpg",
+  },
 ];
 
 export default function Hero() {
@@ -52,20 +73,20 @@ export default function Hero() {
         {/* 🔽 4 SMALL CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
 
-          {[1, 2, 3, 4].map((item) => (
+          {cardData.map((item, index) => (
             <div
-              key={item}
+              key={index}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition"
             >
               <img
-                src="/src/assets/images/5.jpg"
-                alt="card"
+                src={item.image}
+                alt={item.title}
                 className="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
               />
 
               <div className="p-4">
                 <h3 className="font-semibold mb-2">
-                  Category {item}
+                  {item.title}
                 </h3>
 
                 <p className="text-sm text-gray-500 mb-3">
