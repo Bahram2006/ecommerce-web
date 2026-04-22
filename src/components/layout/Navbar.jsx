@@ -21,14 +21,14 @@ export default function Navbar() {
       id: 1,
       name: "Nike Shoes",
       price: 120,
-      image: "/src/assets/images/f4276992.jpg",
+      image: "/src/assets/images/1.jpg",
       qty: 1,
     },
     {
       id: 2,
       name: "Adidas Shoes",
       price: 95,
-      image: "/src/assets/images/f4279552.jpg",
+      image: "/src/assets/images/3.jpg",
       qty: 1,
     },
   ]);

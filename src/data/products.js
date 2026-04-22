@@ -1,6 +1,6 @@
 // 🔥 Import images
-import img1 from "../assets/images/f4276992.jpg";
-import img2 from "../assets/images/f4279552.jpg";
+import img1 from "../assets/images/1.jpg";
+import img2 from "../assets/images/3.jpg";
 
 // 🔥 Product list
 export const products = [

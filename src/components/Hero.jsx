@@ -1,14 +1,35 @@
+import { useState, useEffect } from "react";
+
+const images = [
+  "/src/assets/images/1.jpg",
+  "/src/assets/images/3.jpg",
+  "/src/assets/images/4.jpg",
+  "/src/assets/images/5.jpg",
+];
+
 export default function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  // 🔄 AUTO SLIDER
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="bg-gray-50 py-10">
       <div className="max-w-7xl mx-auto px-8">
 
-        {/* 🔥 BIG BANNER */}
+        {/* 🔥 BIG SLIDER */}
         <div className="relative rounded-3xl overflow-hidden mb-8">
+
           <img
-            src="/src/assets/images/f4279552.jpg"
+            src={images[current]}
             alt="banner"
-            className="w-full h-[350px] object-cover"
+            className="w-full h-[350px] object-cover transition duration-700"
           />
 
           {/* TEXT OVERLAY */}
@@ -16,6 +37,7 @@ export default function Hero() {
             <h1 className="text-4xl font-extrabold text-white mb-4">
               Big Sale is Live 🔥
             </h1>
+
             <p className="text-white/80 mb-6">
               Up to 50% discount on selected products
             </p>
@@ -24,6 +46,7 @@ export default function Hero() {
               Shop Now
             </button>
           </div>
+
         </div>
 
         {/* 🔽 4 SMALL CARDS */}
@@ -41,7 +64,10 @@ export default function Hero() {
               />
 
               <div className="p-4">
-                <h3 className="font-semibold mb-2">Category {item}</h3>
+                <h3 className="font-semibold mb-2">
+                  Category {item}
+                </h3>
+
                 <p className="text-sm text-gray-500 mb-3">
                   Explore products
                 </p>
