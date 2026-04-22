@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // 🔥 BIG SLIDER IMAGES
 const images = [
@@ -14,7 +15,7 @@ const images = [
   "/images/10.jpg",
 ];
 
-// 🔥 CARD DATA (MULTI IMAGES)
+// 🔥 CARD DATA
 const cardData = [
   {
     title: "Shoes",
@@ -56,11 +57,9 @@ const cardData = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
-
-  // 🔥 EACH CARD SLIDER INDEX
   const [cardIndex, setCardIndex] = useState([0, 0, 0, 0]);
 
-  // 🔄 BIG SLIDER
+  // 🔄 BIG SLIDER AUTO
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -69,7 +68,7 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔄 CARD SLIDERS
+  // 🔄 CARD SLIDERS AUTO
   useEffect(() => {
     const interval = setInterval(() => {
       setCardIndex((prev) =>
@@ -80,18 +79,28 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  // 🔥 CONTROLS
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
   return (
     <section className="bg-gray-50 py-10">
       <div className="max-w-7xl mx-auto px-8">
         {/* 🔥 BIG SLIDER */}
-        <div className="relative rounded-3xl overflow-hidden mb-8">
+        <div className="relative rounded-3xl overflow-hidden mb-8 group">
           <img
             src={images[current]}
             alt="banner"
             className="w-full h-[350px] object-cover transition duration-700"
           />
 
-          <div className="absolute inset-0 bg-black/40 flex flex-col justify-center px-10">
+          {/* OVERLAY */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent flex flex-col justify-center px-10">
             <h1 className="text-4xl font-extrabold text-white mb-4">
               Big Sale is Live 🔥
             </h1>
@@ -104,9 +113,38 @@ export default function Hero() {
               Shop Now
             </button>
           </div>
+
+          {/* ◀ PREV */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white p-2 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-800" />
+          </button>
+
+          {/* ▶ NEXT */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white p-2 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-800" />
+          </button>
+
+          {/* 🔵 DOTS */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, index) => (
+              <div
+                key={index}
+                onClick={() => setCurrent(index)}
+                className={`w-3 h-3 rounded-full cursor-pointer transition ${
+                  current === index ? "bg-white scale-110" : "bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* 🔽 SMALL CARDS WITH SLIDER */}
+        {/* 🔽 SMALL CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {cardData.map((item, index) => (
             <div
