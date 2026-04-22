@@ -151,12 +151,25 @@ export default function Hero() {
               key={index}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition"
             >
-              <img
-                src={item.images[cardIndex[index]]}
-                alt={item.title}
-                className="w-full h-40 object-cover group-hover:scale-105 transition duration-500"
-              />
+              {/* 🔥 ANIMATED IMAGE */}
+              <div className="relative w-full h-40 overflow-hidden">
+                {item.images.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    alt={item.title}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-700
+                      ${
+                        cardIndex[index] === i
+                          ? "opacity-100 translate-x-0 z-10"
+                          : "opacity-0 translate-x-5 z-0"
+                      }
+                    `}
+                  />
+                ))}
+              </div>
 
+              {/* TEXT */}
               <div className="p-4">
                 <h3 className="font-semibold mb-2">{item.title}</h3>
 
