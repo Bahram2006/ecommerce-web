@@ -11,16 +11,35 @@ import {
 import { products } from "../../data/products";
 
 export default function Navbar() {
+  // 🔥 STATES
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState([]);
 
+  const [cartItems] = useState([
+    {
+      id: 1,
+      name: "Nike Shoes",
+      price: 120,
+      image: "/src/assets/images/f4276992.jpg",
+      qty: 1,
+    },
+    {
+      id: 2,
+      name: "Adidas Shoes",
+      price: 95,
+      image: "/src/assets/images/f4279552.jpg",
+      qty: 1,
+    },
+  ]);
+
   const categories = ["All", "Shoes", "Clothes", "Electronics"];
 
+  // 🔍 SEARCH LOGIC
   const handleSearch = (value) => {
     setSearch(value);
 
-    if (value.trim() === "") {
+    if (!value.trim()) {
       setFiltered([]);
       return;
     }
@@ -31,6 +50,12 @@ export default function Navbar() {
 
     setFiltered(results);
   };
+
+  // 💰 TOTAL
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
 
   return (
     <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
@@ -53,7 +78,7 @@ export default function Navbar() {
 
               {/* CATEGORY */}
               <div className="relative group">
-                <button className="flex items-center gap-1 px-3 py-1 text-sm text-gray-700 hover:text-blue-600 transition">
+                <button className="flex items-center gap-1 px-3 py-1 text-sm text-gray-700 hover:text-blue-600">
                   {category}
                   <ChevronDown className="w-4 h-4" />
                 </button>
@@ -63,7 +88,7 @@ export default function Navbar() {
                     <div
                       key={cat}
                       onClick={() => setCategory(cat)}
-                      className="px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                      className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                     >
                       {cat}
                     </div>
@@ -74,7 +99,7 @@ export default function Navbar() {
               {/* DIVIDER */}
               <div className="w-px h-5 bg-gray-300 mx-2"></div>
 
-              {/* SEARCH ICON */}
+              {/* ICON */}
               <Search className="w-5 h-5 text-gray-400 mr-2" />
 
               {/* INPUT */}
@@ -83,22 +108,21 @@ export default function Navbar() {
                 value={search}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder={`Search in ${category}...`}
-                className="flex-1 outline-none text-sm text-gray-700 placeholder-gray-400"
+                className="flex-1 outline-none text-sm"
               />
 
               {/* DIVIDER */}
               <div className="w-px h-5 bg-gray-300 mx-3"></div>
 
               {/* GEMINI */}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-sm font-semibold cursor-pointer hover:opacity-80 transition">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-sm font-semibold cursor-pointer">
                 Gemini
               </span>
             </div>
 
-            {/* 🔥 LIVE SEARCH RESULTS */}
+            {/* 🔥 LIVE SEARCH */}
             {filtered.length > 0 && (
               <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 max-h-80 overflow-y-auto">
-
                 {filtered.map((item) => (
                   <div
                     key={item.id}
@@ -110,16 +134,11 @@ export default function Navbar() {
                       className="w-10 h-10 object-cover rounded"
                     />
                     <div>
-                      <p className="text-sm font-medium text-gray-800">
-                        {item.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        ${item.price}
-                      </p>
+                      <p className="text-sm font-medium">{item.name}</p>
+                      <p className="text-xs text-gray-500">${item.price}</p>
                     </div>
                   </div>
                 ))}
-
               </div>
             )}
           </div>
@@ -128,42 +147,87 @@ export default function Navbar() {
         {/* 🔥 RIGHT SIDE */}
         <div className="flex items-center gap-3">
 
-          {/* ❤️ FAVORITES */}
-          <button className="relative p-2 rounded-full hover:bg-gray-100 transition">
+          {/* ❤️ */}
+          <button className="p-2 rounded-full hover:bg-gray-100">
             <Heart className="w-6 h-6 text-gray-700" />
           </button>
 
-          {/* 🔔 NOTIFICATIONS */}
-          <button className="relative p-2 rounded-full hover:bg-gray-100 transition">
+          {/* 🔔 */}
+          <button className="relative p-2 rounded-full hover:bg-gray-100">
             <Bell className="w-6 h-6 text-gray-700" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
               3
             </span>
           </button>
 
-          {/* 🛒 CART */}
-          <Link
-            to="/cart"
-            className="relative p-2 rounded-full hover:bg-gray-100 transition"
-          >
-            <ShoppingCart className="w-6 h-6 text-gray-700" />
-            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] px-1.5 rounded-full">
-              2
-            </span>
-          </Link>
+          {/* 🛒 CART WITH PREVIEW */}
+          <div className="relative group">
+            <Link
+              to="/cart"
+              className="relative p-2 rounded-full hover:bg-gray-100"
+            >
+              <ShoppingCart className="w-6 h-6 text-gray-700" />
+              <span className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] px-1.5 rounded-full">
+                {cartItems.length}
+              </span>
+            </Link>
 
-          {/* 👤 PROFILE */}
-          <button className="p-2 rounded-full hover:bg-gray-100 transition">
+            {/* PREVIEW */}
+            <div className="absolute right-0 mt-3 w-80 bg-white border border-gray-200 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50">
+
+              <div className="max-h-60 overflow-y-auto">
+                {cartItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-12 h-12 rounded object-cover"
+                    />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">{item.name}</p>
+                      <p className="text-xs text-gray-500">
+                        ${item.price} × {item.qty}
+                      </p>
+                    </div>
+                    <p className="text-sm font-semibold">
+                      ${item.price * item.qty}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t p-4">
+                <div className="flex justify-between text-sm mb-3">
+                  <span>Total:</span>
+                  <span className="text-blue-600 font-semibold">
+                    ${total}
+                  </span>
+                </div>
+
+                <Link
+                  to="/cart"
+                  className="block text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-lg text-sm"
+                >
+                  Go to Cart
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* 👤 */}
+          <button className="p-2 rounded-full hover:bg-gray-100">
             <User className="w-6 h-6 text-gray-700" />
           </button>
 
-          {/* 🔥 BUTTON */}
-          <button className="ml-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">
+          {/* 🔥 BTN */}
+          <button className="ml-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-2 rounded-full text-sm">
             Sign In
           </button>
 
         </div>
-
       </div>
     </nav>
   );
