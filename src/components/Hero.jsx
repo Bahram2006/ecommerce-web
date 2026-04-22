@@ -3,9 +3,15 @@ import { useState, useEffect } from "react";
 // 🔥 SLIDER IMAGES (PUBLIC FOLDER ULAN)
 const images = [
   "/images/1.jpg",
+  "/images/2.jpg",
   "/images/3.jpg",
   "/images/4.jpg",
   "/images/5.jpg",
+  "/images/6.jpg",
+  "/images/7.jpg",
+  "/images/8.jpg",
+  "/images/9.jpg",
+  "/images/10.jpg",
 ];
 
 // 🔥 CARD DATA (HER BIRI AYRY)
@@ -16,15 +22,15 @@ const cardData = [
   },
   {
     title: "Clothes",
-    image: "/images/3.jpg",
+    image: "/images/2.jpg",
   },
   {
     title: "Electronics",
-    image: "/images/5.jpg",
+    image: "/images/3.jpg",
   },
   {
     title: "Accessories",
-    image: "/images/7.jpg",
+    image: "/images/4.jpg",
   },
 ];
 
