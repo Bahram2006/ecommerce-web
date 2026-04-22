@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// 🔥 SLIDER IMAGES (PUBLIC FOLDER ULAN)
+// 🔥 BIG SLIDER IMAGES
 const images = [
   "/images/1.jpg",
   "/images/2.jpg",
@@ -14,30 +14,53 @@ const images = [
   "/images/10.jpg",
 ];
 
-// 🔥 CARD DATA (HER BIRI AYRY)
+// 🔥 CARD DATA (MULTI IMAGES)
 const cardData = [
   {
     title: "Shoes",
-    image: "/images/1.jpg",
+    images: [
+      "/images/1.jpg",
+      "/images/2.jpg",
+      "/images/3.jpg",
+      "/images/4.jpg",
+    ],
   },
   {
     title: "Clothes",
-    image: "/images/2.jpg",
+    images: [
+      "/images/2.jpg",
+      "/images/3.jpg",
+      "/images/4.jpg",
+      "/images/1.jpg",
+    ],
   },
   {
     title: "Electronics",
-    image: "/images/3.jpg",
+    images: [
+      "/images/3.jpg",
+      "/images/4.jpg",
+      "/images/1.jpg",
+      "/images/2.jpg",
+    ],
   },
   {
     title: "Accessories",
-    image: "/images/4.jpg",
+    images: [
+      "/images/4.jpg",
+      "/images/1.jpg",
+      "/images/2.jpg",
+      "/images/3.jpg",
+    ],
   },
 ];
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
 
-  // 🔄 AUTO SLIDER
+  // 🔥 EACH CARD SLIDER INDEX
+  const [cardIndex, setCardIndex] = useState([0, 0, 0, 0]);
+
+  // 🔄 BIG SLIDER
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -46,20 +69,28 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  // 🔄 CARD SLIDERS
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCardIndex((prev) =>
+        prev.map((val, i) => (val + 1) % cardData[i].images.length),
+      );
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="bg-gray-50 py-10">
       <div className="max-w-7xl mx-auto px-8">
-
         {/* 🔥 BIG SLIDER */}
         <div className="relative rounded-3xl overflow-hidden mb-8">
-
           <img
             src={images[current]}
             alt="banner"
             className="w-full h-[350px] object-cover transition duration-700"
           />
 
-          {/* TEXT OVERLAY */}
           <div className="absolute inset-0 bg-black/40 flex flex-col justify-center px-10">
             <h1 className="text-4xl font-extrabold text-white mb-4">
               Big Sale is Live 🔥
@@ -73,31 +104,25 @@ export default function Hero() {
               Shop Now
             </button>
           </div>
-
         </div>
 
-        {/* 🔽 4 SMALL CARDS */}
+        {/* 🔽 SMALL CARDS WITH SLIDER */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-
           {cardData.map((item, index) => (
             <div
               key={index}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition"
             >
               <img
-                src={item.image}
+                src={item.images[cardIndex[index]]}
                 alt={item.title}
-                className="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
+                className="w-full h-40 object-cover group-hover:scale-105 transition duration-500"
               />
 
               <div className="p-4">
-                <h3 className="font-semibold mb-2">
-                  {item.title}
-                </h3>
+                <h3 className="font-semibold mb-2">{item.title}</h3>
 
-                <p className="text-sm text-gray-500 mb-3">
-                  Explore products
-                </p>
+                <p className="text-sm text-gray-500 mb-3">Explore products</p>
 
                 <button className="text-blue-600 text-sm font-medium hover:underline">
                   Shop →
@@ -105,9 +130,7 @@ export default function Hero() {
               </div>
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );
