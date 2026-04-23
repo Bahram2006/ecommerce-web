@@ -59,7 +59,7 @@ export default function Hero() {
   const [current, setCurrent] = useState(0);
   const [cardIndex, setCardIndex] = useState([0, 0, 0, 0]);
 
-  // 🔄 BIG SLIDER AUTO
+  //  BIG SLIDER AUTO
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -68,7 +68,7 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔄 CARD SLIDERS AUTO
+  //  CARD SLIDERS AUTO
   useEffect(() => {
     const interval = setInterval(() => {
       setCardIndex((prev) =>
@@ -79,7 +79,7 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔥 CONTROLS
+  //  CONTROLS
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % images.length);
   };
@@ -91,7 +91,7 @@ export default function Hero() {
   return (
     <section className="bg-gray-50 py-10">
       <div className="max-w-7xl mx-auto px-8">
-        {/* 🔥 BIG SLIDER */}
+        {/*  BIG SLIDER */}
         <div className="relative rounded-3xl overflow-hidden mb-8 group">
           <img
             src={images[current]}
@@ -102,7 +102,7 @@ export default function Hero() {
           {/* OVERLAY */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent flex flex-col justify-center px-10">
             <h1 className="text-4xl font-extrabold text-white mb-4">
-              Big Sale is Live 🔥
+              Big Sale is Live 
             </h1>
 
             <p className="text-white/80 mb-6">
@@ -114,7 +114,7 @@ export default function Hero() {
             </button>
           </div>
 
-          {/* ◀ PREV */}
+          {/*  PREV */}
           <button
             onClick={prevSlide}
             className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white p-2 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
@@ -122,7 +122,7 @@ export default function Hero() {
             <ChevronLeft className="w-5 h-5 text-gray-800" />
           </button>
 
-          {/* ▶ NEXT */}
+          {/*  NEXT */}
           <button
             onClick={nextSlide}
             className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white p-2 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
@@ -130,7 +130,7 @@ export default function Hero() {
             <ChevronRight className="w-5 h-5 text-gray-800" />
           </button>
 
-          {/* 🔵 DOTS */}
+          {/*  DOTS */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
             {images.map((_, index) => (
               <div
@@ -144,14 +144,14 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* 🔽 SMALL CARDS */}
+        {/*  SMALL CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {cardData.map((item, index) => (
             <div
               key={index}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition"
             >
-              {/* 🔥 ANIMATED IMAGE */}
+              {/*  ANIMATED IMAGE */}
               <div className="relative w-full h-40 overflow-hidden">
                 {item.images.map((img, i) => (
                   <img
