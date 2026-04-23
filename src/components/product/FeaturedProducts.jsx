@@ -10,25 +10,41 @@ export default function FeaturedProducts() {
           {products.map((item) => (
             <div
               key={item.id}
-              className="bg-gray-50 rounded-2xl p-4 shadow-sm hover:shadow-lg transition"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300"
             >
               {/* IMAGE */}
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-40 object-cover rounded-xl mb-4"
-              />
+              <div className="relative overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-48 object-cover group-hover:scale-110 transition duration-500"
+                />
 
-              {/* NAME */}
-              <h3 className="font-semibold mb-2">{item.name}</h3>
+                {/* ❤️ FAVORITE */}
+                <button className="absolute top-3 right-3 bg-white/80 backdrop-blur p-2 rounded-full opacity-0 group-hover:opacity-100 transition">
+                  ❤️
+                </button>
+              </div>
 
-              {/* PRICE */}
-              <p className="text-blue-600 font-bold mb-3">${item.price}</p>
+              {/* CONTENT */}
+              <div className="p-4">
+                {/* NAME */}
+                <h3 className="font-semibold text-gray-800 mb-1">
+                  {item.name}
+                </h3>
 
-              {/* BUTTON */}
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-lg text-sm hover:opacity-90 transition">
-                Add to Cart
-              </button>
+                {/* ⭐ RATING (fake) */}
+                <div className="text-yellow-400 text-sm mb-2">★★★★☆</div>
+
+                {/* PRICE + BTN */}
+                <div className="flex items-center justify-between">
+                  <span className="text-blue-600 font-bold">${item.price}</span>
+
+                  <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1.5 rounded-lg text-sm hover:scale-105 transition">
+                    Add
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
